@@ -1,8 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:solemate/Network/firebaseServices.dart';
+import 'package:solemate/firebase_options.dart';
 import 'package:solemate/pages/login.dart';
 
-void main() {
+void main() async{
   runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
 }
 
 class MyApp extends StatelessWidget {

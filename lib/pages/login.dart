@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:solemate/Network/firebaseAuthServices.dart';
+import 'package:solemate/pages/home.dart';
 import 'package:solemate/pages/register.dart';
 import 'package:solemate/widgets/customButton.dart';
 import 'package:solemate/widgets/customTextField.dart';
@@ -131,14 +133,29 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
   }
-
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       String email = _emailController.text.trim();
       String password = _passwordController.text.trim();
-      // context
-          // .read<AuthBloc>()
-          // .add(UserSignIn(email: email, password: password));
+
+      try {
+        // Memanggil service FirebaseAuth untuk login
+        var user = await FirebaseAuthService().signInWithEmail(email, password);
+
+        // Jika login berhasil, kamu bisa melakukan navigasi atau apa saja setelah login berhasil
+        // Misalnya, mengalihkan ke halaman utama
+        if (user != null) {
+          // Ganti dengan navigasi yang sesuai setelah login sukses
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()), // Ganti LoginPage() dengan widget tujuanmu
+          );
+        }
+      } catch (e) {
+        // Menampilkan error jika login gagal
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
+
 }
