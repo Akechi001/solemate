@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:solemate/Network/firebaseServices.dart';
 import 'package:solemate/firebase_options.dart';
 import 'package:solemate/pages/login.dart';
 
